@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,16 +8,16 @@ public class CameraController : MonoBehaviour
 {
     public RawImage CameraFeed;
     private WebCamTexture frontCamera;
+    private Texture defaultbackgroud;
 
     public bool CamRunning { get; private set; }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         
     }
 
-    void Update()
+    void Start()
     {
         // Request camera permission
         if (Application.HasUserAuthorization(UserAuthorization.WebCam))
@@ -29,9 +30,14 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    // Initialize the camera
+    void Update()
+    {
+
+    }
+
     void InitializeCamera()
     {
+        defaultbackgroud = CameraFeed.texture;
         WebCamDevice[] devices = WebCamTexture.devices;
 
         if (devices.Length == 0)
@@ -71,12 +77,28 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public void CloseCamera()
+    public void Capture()
+    {
+        // Create a new texture with the dimensions of the webcam texture
+        Texture2D texture = new Texture2D(frontCamera.width, frontCamera.height);
+
+        // Set the pixels of the new texture to the pixels of the webcam texture
+        texture.SetPixels(frontCamera.GetPixels());
+        texture.Apply();
+
+        // Optionally, save the texture as a PNG file
+        byte[] bytes = texture.EncodeToPNG();
+        System.IO.File.WriteAllBytes("C:\\Users\\Marwa\\Documents\\Unity\\CapturedPicture.png", bytes);
+    }
+
+    public void CameraOff()
     {
         if (frontCamera != null)
         {
+            CameraFeed.material.mainTexture = defaultbackgroud;
             frontCamera.Stop();
-            SceneManager.LoadScene(0);
         }
+
+        SceneManager.LoadScene(0);
     }
 }
