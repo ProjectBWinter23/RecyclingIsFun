@@ -123,6 +123,74 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &659540518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 659540521}
+  - component: {fileID: 659540520}
+  - component: {fileID: 659540519}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &659540519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659540518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &659540520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659540518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &659540521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659540518}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &851493930
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,6 +361,8 @@ GameObject:
   - component: {fileID: 1087434013}
   - component: {fileID: 1087434015}
   - component: {fileID: 1087434017}
+  - component: {fileID: 1087434018}
+  - component: {fileID: 1087434019}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -391,6 +461,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087434011}
   m_CullTransparentMesh: 1
+--- !u!114 &1087434018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087434011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55be1665825284b4bbc9583be5bb45f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 1bd541f3d4cb7c643b02eb68ef999837, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1087434015}
+        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+        m_MethodName: CameraOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1087434019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087434011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55be1665825284b4bbc9583be5bb45f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: ba1bd749f8d7e5840a811634ec033ea2, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1087434015}
+        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+        m_MethodName: Capture
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1802900579
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,6 +705,7 @@ GameObject:
   - component: {fileID: 1964494186}
   - component: {fileID: 1964494185}
   - component: {fileID: 1964494184}
+  - component: {fileID: 1964494187}
   m_Layer: 5
   m_Name: CaptureButton
   m_TagString: Untagged
@@ -649,7 +776,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1964494185}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1964494187}
+        m_TargetAssemblyTypeName: Capture_EventHandler, Assembly-CSharp
+        m_MethodName: Invoke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1964494185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,7 +802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.12531787, g: 0.7735849, b: 0.010217119, a: 1}
+  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -688,6 +827,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1964494182}
   m_CullTransparentMesh: 1
+--- !u!114 &1964494187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964494182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0abefa0500d35e4bbc1d834479533eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnCapturePressed: {fileID: 11400000, guid: ba1bd749f8d7e5840a811634ec033ea2, type: 2}
 --- !u!1 &2068227938
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +851,7 @@ GameObject:
   - component: {fileID: 2068227939}
   - component: {fileID: 2068227943}
   - component: {fileID: 2068227941}
-  - component: {fileID: 2068227944}
+  - component: {fileID: 2068227945}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -771,9 +923,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2068227944}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: LoadMainMenuScene
+      - m_Target: {fileID: 2068227945}
+        m_TargetAssemblyTypeName: CloseCameraEvent, Assembly-CSharp
+        m_MethodName: Invoke
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -791,7 +943,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068227938}
   m_CullTransparentMesh: 1
---- !u!114 &2068227944
+--- !u!114 &2068227945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -800,12 +952,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2068227938}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d608fb1d2abf46c4a96e990e81bb0b4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 6efb9f677ee352843b18a870fb80db21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnCameraOffPressed: {fileID: 11400000, guid: 1bd541f3d4cb7c643b02eb68ef999837, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1087434014}
   - {fileID: 1904653576}
+  - {fileID: 659540521}
