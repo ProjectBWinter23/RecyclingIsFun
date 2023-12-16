@@ -1,0 +1,24 @@
+{
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.cysharp.unitask"
+      ]
+    },
+    {
+      "name": "npm",
+      "url": "https://registry.npmjs.com",
+      "scopes": [
+        "com.github.asus4"
+      ]
+    }
+  ],
+  "dependencies": {
+    "com.github.asus4.mediapipe": "2.15.0",
+    "com.github.asus4.tflite": "2.15.0",
+    "com.github.asus4.tflite.common": "2.15.0",
+    "com.unity.modules.audio": "1.0.0"
+  }
+}

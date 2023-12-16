@@ -1,0 +1,36 @@
+{
+  "dependencies": {
+    "com.github.asus4.mediapipe": {
+      "version": "2.15.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.github.asus4.tflite": "2.15.0",
+        "com.github.asus4.tflite.common": "2.15.0"
+      },
+      "url": "https://registry.npmjs.com"
+    },
+    "com.github.asus4.tflite": {
+      "version": "2.15.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://registry.npmjs.com"
+    },
+    "com.github.asus4.tflite.common": {
+      "version": "2.15.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.github.asus4.tflite": "2.15.0"
+      },
+      "url": "https://registry.npmjs.com"
+    },
+    "com.unity.modules.audio": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    }
+  }
+}
