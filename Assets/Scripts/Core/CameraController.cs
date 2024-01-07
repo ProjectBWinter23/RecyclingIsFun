@@ -4,40 +4,58 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour,IObserver
 {
+    public GameObject cameraCanvas;
     public RawImage CameraFeed;
+    public RawImage CapturedImagePreview;
+    public GameObject PreviewCanvas;
+    public Button OKButton;
+    public Button RecaptureButton;
+
     private WebCamTexture frontCamera;
-    private Texture defaultbackgroud;
+    private Texture defaultBackground;
+    private Texture2D capturedTexture;
 
     public bool CamRunning { get; private set; }
 
     private void Awake()
     {
-        
+        // Make sure to assign the UI elements in the Inspector
+        OKButton.onClick.AddListener(OnOKButtonClicked);
+        RecaptureButton.onClick.AddListener(OnRecaptureButtonClicked);
     }
 
-    void Start()
+    void OnEnable()
     {
-        // Request camera permission
-        if (Application.HasUserAuthorization(UserAuthorization.WebCam))
+        EventManager.OnScreenChange += OnNotify;
+    }
+
+    public void OnNotify(string eventName)
+    {
+        if (eventName == EventManager.CAMERA_PAGE)
         {
-            InitializeCamera();
-        }
-        else
-        {
-            Debug.LogError("Camera permission not granted.");
+            if (Application.HasUserAuthorization(UserAuthorization.WebCam))
+            {
+                Debug.Log("Camera Initialized");
+                InitializeCamera();
+            }
+            else
+            {
+                Debug.LogError("Camera permission not granted.");
+            }
         }
     }
 
     void Update()
     {
-
+        // You can add any necessary update logic here
     }
 
     void InitializeCamera()
     {
-        defaultbackgroud = CameraFeed.texture;
+        cameraCanvas.SetActive(true);
+        defaultBackground = CameraFeed.texture;
         WebCamDevice[] devices = WebCamTexture.devices;
 
         if (devices.Length == 0)
@@ -51,6 +69,9 @@ public class CameraController : MonoBehaviour
             if (devices[i].isFrontFacing)
             {
                 frontCamera = new WebCamTexture(devices[i].name, Screen.width, Screen.height);
+                int angle = -frontCamera.videoRotationAngle;
+                CameraFeed.rectTransform.localEulerAngles = new Vector3(0, 0, angle);
+
                 break;
             }
         }
@@ -61,13 +82,9 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        // Check if the object has a Renderer component
         if (CameraFeed != null)
         {
-            // Apply the camera texture to the material of the Renderer component
             CameraFeed.material.mainTexture = frontCamera;
-
-            // Start the camera
             frontCamera.Play();
             CamRunning = true;
         }
@@ -79,26 +96,65 @@ public class CameraController : MonoBehaviour
 
     public void Capture()
     {
-        // Create a new texture with the dimensions of the webcam texture
-        Texture2D texture = new Texture2D(frontCamera.width, frontCamera.height);
+        capturedTexture = new Texture2D(frontCamera.width, frontCamera.height);
+        capturedTexture.SetPixels(frontCamera.GetPixels());
+        capturedTexture.Apply();
 
-        // Set the pixels of the new texture to the pixels of the webcam texture
-        texture.SetPixels(frontCamera.GetPixels());
-        texture.Apply();
+        // Display the captured image in the preview
+        CapturedImagePreview.texture = capturedTexture;
 
-        // Optionally, save the texture as a PNG file
-        byte[] bytes = texture.EncodeToPNG();
-        System.IO.File.WriteAllBytes("C:\\Users\\Marwa\\Documents\\Unity\\CapturedPicture.png", bytes);
+        PreviewCanvas.SetActive(true);
+        if (frontCamera != null)
+        {
+            frontCamera.Stop();
+        }
+
+        if (CameraFeed != null)
+        {
+            CameraFeed.material.mainTexture = defaultBackground;
+        }
+        cameraCanvas.SetActive(false);
+    }
+
+    private void OnOKButtonClicked()
+    {
+        // Handle the OK button click
+        // You can implement the logic to proceed with the captured image
+        // For example, save the image, process it, or move to the next scene
+        // SceneManager.LoadScene("YourNextSceneName");
+
+        // For now, just hide the preview canvas
+        PreviewCanvas.SetActive(false);
+        UIReferences.Instance.cameraPage.SetActive(false);
+        CameraOff();
+        EventManager.ChangeScreen(EventManager.MAKE_CHOICE_PAGE);
+    }
+
+    private void OnRecaptureButtonClicked()
+    {
+        // Handle the Recapture button click
+        PreviewCanvas.SetActive(false);
+        InitializeCamera();
     }
 
     public void CameraOff()
     {
         if (frontCamera != null)
         {
-            CameraFeed.material.mainTexture = defaultbackgroud;
             frontCamera.Stop();
         }
 
-        SceneManager.LoadScene(0);
+        if (CameraFeed != null)
+        {
+            CameraFeed.material.mainTexture = defaultBackground;
+        }
+        cameraCanvas.SetActive(false);
+        UIReferences.Instance.cameraPage.SetActive(false);
+        EventManager.ChangeScreen(EventManager.PROFILE_PAGE);
+    }
+
+    void OnDisable()
+    {
+        EventManager.OnScreenChange -= OnNotify;
     }
 }
