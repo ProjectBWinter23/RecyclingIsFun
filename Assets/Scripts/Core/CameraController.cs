@@ -1,3 +1,4 @@
+using Assets.Scripts.Database;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -99,7 +100,7 @@ public class CameraController : MonoBehaviour
         System.IO.File.WriteAllBytes(ImagePath, bytes);
     }
 
-    public async void CameraOff()
+    public void CameraOff()
     {
         if (frontCamera != null)
         {
