@@ -12,6 +12,7 @@ namespace Assets.Scripts.Database
     [Serializable]
     public class UserData
     {
+        // more properties can be added
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
@@ -22,10 +23,8 @@ namespace Assets.Scripts.Database
 
         public void Save()
         {
-            // Serialize the ConfigurationBase data to JSON.
             string userData = JsonConvert.SerializeObject(this);
 
-            // Write the JSON string to the file.
             File.WriteAllText(DatabaseManager.UserFilePath, userData);
 
             Debug.Log("JSON data written to: " + DatabaseManager.UserFilePath);
@@ -48,10 +47,8 @@ namespace Assets.Scripts.Database
                 Age = 12,
             };
 
-            // Serialize the ConfigurationBase data to JSON.
             string json = JsonConvert.SerializeObject(data);
 
-            // Write the JSON string to the file.
             File.WriteAllText(DatabaseManager.UserFilePath, json);
 
             Debug.Log("JSON data written to: " + DatabaseManager.UserFilePath);

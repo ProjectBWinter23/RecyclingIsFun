@@ -18,6 +18,11 @@ namespace Assets.Scripts.Database
         public KeyValuePair<string, string> GreenBin;
         public KeyValuePair<string, string> GrayBin;
         public WasteBinsData() { }
+        public static WasteBinsData Get()
+        {
+            string wasterBins = File.ReadAllText(DatabaseManager.WasteBinsFilePath);
+            return JsonConvert.DeserializeObject<WasteBinsData>(wasterBins);
+        }
 
         public static void WriteFile()
         {
@@ -32,16 +37,9 @@ namespace Assets.Scripts.Database
 
             string userData = JsonConvert.SerializeObject(wasteBins);
 
-            // Write the JSON string to the file.
             File.WriteAllText(DatabaseManager.WasteBinsFilePath, userData);
 
             Debug.Log("JSON data written to: " + DatabaseManager.WasteBinsFilePath);
-        }
-
-        public static WasteBinsData Get()
-        {
-            string wasterBins = File.ReadAllText(DatabaseManager.WasteBinsFilePath);
-            return JsonConvert.DeserializeObject<WasteBinsData>(wasterBins);
         }
     }
 }
